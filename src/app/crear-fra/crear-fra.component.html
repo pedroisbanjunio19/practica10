@@ -1,0 +1,52 @@
+<div class="card l">
+    <div class="titles-row">
+        <h1>Crear Factura</h1>
+    </div>
+    <hr>
+    <form  [formGroup]="formFra">
+      <div class="input-row">
+        <label>
+          Razón social
+          <span class="alert" *ngIf="formFra.get('razonSocial').value && formFra.get('razonSocial').hasError('minlength')">
+            El nombre debe tener más de 4 caracteres
+          </span>
+          <span class="alert" *ngIf="!formFra.get('razonSocial').value && formFra.get('razonSocial').touched">
+            Campo obligatorio
+          </span>
+        </label>
+        <input type="text" id="razonSocial" formControlName="razonSocial">
+      </div>
+      <div class="input-row">
+        <label>Número Factura</label>
+        <input type="text" formControlName="numero">
+      </div>
+      <div class="input-row">
+        <label>Fecha</label>
+        <input type="date" formControlName="fecha" value="{{fechaActual | date:'yyyy-MM-dd'}}">
+      </div>
+      <div class="input-row">
+        <label>Base imponible</label>
+        <input type="number" formControlName="base">
+      </div>
+      <div class="input-row">
+        <label>% IVA</label>
+        <select formControlName="tipo">
+          <option value=0>0 %</option>
+          <option value=0.04>4 %</option>
+          <option value=0.1>10 %</option>
+          <option value=0.21>21 %</option>
+        </select>
+      </div>
+      <div class="input-row">
+        <label>Importe IVA</label>
+        <input type="number" formControlName="importeIVA" value="{{formFra.value.importeIVA}}" readonly>
+      </div>
+      <div class="input-row">
+        <label>Total factura IVA incluido</label>
+        <input type="number" formControlName="total" value="{{formFra.value.total}}" readonly>
+      </div>
+      <div class="buttons-row">
+        <button type="submit" [disabled]="formFra.invalid">Añadir Factura</button>
+      </div>
+    </form>
+</div>
